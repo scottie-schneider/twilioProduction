@@ -14,7 +14,7 @@ app.use(urlencoded({ extended: false }));
 app.post('/voice', (request, response) => {
 async function go(){
   try{
-    const wes = await axios('https://followupedge.com/version-test/api/1.1/obj/user?api_token=98107ac3b7b363d93f1b9e3863b79bee&constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%2215125984144%22%7D%5D');
+    const wes = await axios(`https://followupedge.com/version-test/api/1.1/obj/user?api_token=98107ac3b7b363d93f1b9e3863b79bee&constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${request.body.From}%22%7D%5D`);
     console.log(wes.data.response.results[0].personalPhone);
     console.log(request.body.From);
     var phoneNumber = wes.data.response.results[0].personalPhone;
