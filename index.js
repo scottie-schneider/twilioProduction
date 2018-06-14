@@ -33,6 +33,9 @@ async function go(){
     user: wes.data.response.results[0]._id,
     prospectPhone: request.body.From
   })
+  .catch((e) => {
+    console.log(e);
+  })
   }catch (e){
     console.log(e);
   }
