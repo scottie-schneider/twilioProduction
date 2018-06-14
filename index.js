@@ -35,7 +35,7 @@ app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
         res.send(twiml.toString());
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.message);
       })
 });
 
