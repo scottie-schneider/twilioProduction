@@ -46,7 +46,7 @@ Overall goals
   * Replace the Bubble backend
   * Create a replicatable system of components that can be reused
 */
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
   let token = '98107ac3b7b363d93f1b9e3863b79bee'
   let campaignNum = '15125984144'
 
