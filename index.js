@@ -17,7 +17,7 @@ app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
   console.log(req.body);
 
   // start bubble call
-  let token = '98107ac3b7b363d93f1b9e3863b79bee;';
+  let token = '98107ac3b7b363d93f1b9e3863b79bee';
   let searchNum = '15125984144';
       axios.get(`https://followupedge.com/version-test/api/1.1/obj/user?constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${searchNum}%22%7D%5D`,
         {
