@@ -28,6 +28,11 @@ async function go(){
       dial.client("support_agent");
     }
     response.send(twiml.toString());
+    // TODO: hit bubble endpoint
+    axios.post('https://followupedge.com/version-test/api/1.1/gotacall/initialize', {
+    user: wes.data.response.results[0]._id,
+    prospectPhone: request.body.From
+  })
   }catch (e){
     console.log(e);
   }
