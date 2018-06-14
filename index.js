@@ -19,7 +19,7 @@ app.post('/voice', (request, response) => {
   const twiml = new VoiceResponse();
   twiml.say({ voice: 'alice' }, `Never gonna give you up`);
   twiml.play({}, 'https://demo.twilio.com/docs/classic.mp3');
-
+  twiml.dial({callerId : '5128176776'}, '5128176951');
   // Render the response as XML in reply to the webhook request
   response.type('text/xml');
   response.send(twiml.toString());
