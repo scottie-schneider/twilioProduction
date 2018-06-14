@@ -24,7 +24,7 @@ app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
   if (phoneNumber != null) {
     dial.number(phoneNumber);
   }
-  //res.send(twiml.toString());
+  res.send(twiml.toString());
   // start bubble call
 //   let token = '98107ac3b7b363d93f1b9e3863b79bee';
 //   let searchNum = '15125984144';
@@ -38,7 +38,7 @@ app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
 //     .catch((e) => {
 //       console.log(e.message);
 //     })
-// });
+  });
 
 // Create an HTTP server and listen for requests on port 3000
 app.listen(app.get('port'), function() {
