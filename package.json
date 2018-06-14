@@ -1,0 +1,19 @@
+{
+  "name": "bubbleNode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon --exec 'npm test'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "querystring": "^0.2.0",
+    "twilio": "^3.17.2"
+  }
+}

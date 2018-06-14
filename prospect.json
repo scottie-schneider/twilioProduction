@@ -1,0 +1,61 @@
+{
+    "response": {
+        "_id": "1526664595135x955284522846341100",
+        "CB Campaign": "1521922296808x882791957001928700",
+        "propertyaddress": {
+            "address": "5460 W State Rd 84 # 12, Davie, FL 33314, USA",
+            "lat": 26.0902029,
+            "lng": -80.21929779999999
+        },
+        "CB Email Address": "chris.davis@followupedge.com",
+        "CB First Name": "Test",
+        "CB Last Name": "Email",
+        "CB Mobile Number": "5128176951",
+        "Created Date": "2018-05-18T17:29:55.179Z",
+        "Created By": "non_authenticated_user_blondielives_test",
+        "Modified Date": "2018-05-20T02:36:50.164Z",
+        "CB Responses": [
+            "1526664677125x496460381196811800"
+        ],
+        "note (list)": [
+            "1526664595352x971467187860980600"
+        ],
+        "CB Conversations (list)": [
+            "1526664604218x686475460417568600",
+            "1526664604920x120110037736594670"
+        ],
+        "CB Schedule IDs (list)": [
+            "1"
+        ],
+        "CB Campaign Owner": "1515374432351x187097172020003200",
+        "CB Full Name": "Test Email",
+        "owner email": "agent+UDXDJ@followupedge.com",
+        "CB Raw Mobile Number": "5128176951",
+        "CB Raw Country Code": "1",
+        "CB Bio": "sdf",
+        "location": "sef",
+        "facebook": "we",
+        "linkedin": "sd",
+        "CBUser": "1515374432351x187097172020003200",
+        "CSV ID": "12",
+        "Group": "1516246123278x803096269011025900",
+        "On Hold?": "df",
+        "active": false,
+        "inactive": true,
+        "responded": true,
+        "unsubscribed": true,
+        "CB Status": "Responded",
+        "Import phone number": 12,
+        "waiting response?": "yes",
+        "Campaign Event (list)": [
+            "1526664597528x946571036940440600"
+        ],
+        "type": "inbound",
+        "Hide Response": false,
+        "list": "1524157780674x619082610222825500",
+        "tag": [
+            "sd"
+        ],
+        "_type": "custom.prospects"
+    }
+}
