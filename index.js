@@ -4,6 +4,8 @@ const urlencoded = require('body-parser').urlencoded;
 
 const app = express();
 
+pp.set('port', (process.env.PORT || 5000));
+
 // Parse incoming POST params with Express middleware
 app.use(urlencoded({ extended: false }));
 
@@ -24,4 +26,6 @@ app.post('/voice', (request, response) => {
 });
 
 // Create an HTTP server and listen for requests on port 3000
-app.listen(3000);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
