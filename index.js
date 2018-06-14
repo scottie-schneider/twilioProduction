@@ -12,7 +12,7 @@ app.use(urlencoded({ extended: false }));
 // Create a route that will handle Twilio webhook requests, sent as an
 // HTTP POST to /voice in our application
 app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
-  var phoneNumber = req.body.phoneNumber;
+  var phoneNumber = '5128176951';
   var callerId = '5128176776';
   var twiml = new VoiceResponse();
 
