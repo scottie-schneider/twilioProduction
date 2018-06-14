@@ -12,7 +12,6 @@ app.use(urlencoded({ extended: false }));
 // Create a route that will handle Twilio webhook requests, sent as an
 // HTTP POST to /voice in our application
 app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
-  console.log(req.body);
   var phoneNumber = '5128176951';
   var callerId = '5128176776';
   var twiml = new VoiceResponse();
@@ -23,7 +22,6 @@ app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
   }
 
   res.send(twiml.toString());
-
 });
 
 // Create an HTTP server and listen for requests on port 3000
