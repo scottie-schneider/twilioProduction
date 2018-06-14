@@ -1,30 +1,28 @@
 const express = require('express');
-const axios = require('axios');
-const querystring = require("querystring");
-const router = express.Router();
-const crypto = require('crypto')
-const request = require('request')
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
+const urlencoded = require('body-parser').urlencoded;
 
+const app = express();
 
-/*
-Overall goals
-  * Connect with the bubble database and pull everything into a Mlab instance
-  * Build a super admin screen where we can control everything we need
-  * A REST API where we can update, control, optimize, and build Facebook ads
-  * Replace the Bubble backend
-  * Create a replicatable system of components that can be reused
-*/
-router.post('/', (req, res) => {
+// Parse incoming POST params with Express middleware
+app.use(urlencoded({ extended: false }));
+
+// Create a route that will handle Twilio webhook requests, sent as an
+// HTTP POST to /voice in our application
+app.post('/voice', (request, response) => {
+  // Get information about the incoming call, like the city associated
+  // with the phone number (if Twilio can discover it)
+  const city = request.body.FromCity;
 
   // Use the Twilio Node.js SDK to build an XML response
   const twiml = new VoiceResponse();
-  twiml.say({ voice: 'alice' }, 'hello world!');
+  twiml.say({ voice: 'alice' }, `Never gonna give you up ${city}.`);
+  twiml.play({}, 'https://demo.twilio.com/docs/classic.mp3');
 
   // Render the response as XML in reply to the webhook request
-  res.type('text/xml');
-  res.send(twiml.toString());
+  response.type('text/xml');
+  response.send(twiml.toString());
+});
 
-})
-
-module.exports = router;
+// Create an HTTP server and listen for requests on port 3000
+app.listen(3000);
