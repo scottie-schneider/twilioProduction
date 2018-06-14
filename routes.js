@@ -49,7 +49,7 @@ Overall goals
 router.post('/', (req, res) => {
   let token = '98107ac3b7b363d93f1b9e3863b79bee'
   let campaignNum = '15125984144'
-
+  res.dial('15128176776')
 
   axios.get(`https://followupedge.com/version-test/api/1.1/obj/user?constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${campaignNum}%22%7D%5D`,
   {
@@ -75,7 +75,7 @@ router.post('/', (req, res) => {
 
     let dialParams = {};
     twiml.say('Please eat 2 dicks davis.');
-    twiml.dial(dialParams, phoneNumber);
+    //twiml.dial(dialParams, phoneNumber);
 })
   .catch((e) => {
     console.log(e);
