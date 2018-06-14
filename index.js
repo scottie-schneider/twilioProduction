@@ -29,7 +29,7 @@ async function go(){
     }
     response.send(twiml.toString());
     // TODO: hit bubble endpoint
-    axios.post('https://followupedge.com/version-test/api/1.1/gotacall/initialize', {
+    axios.post('https://d38.bubble.is/site/blondielives/version-test/api/1.1/wf/gotacall/initialize', {
     user: wes.data.response.results[0]._id,
     prospectPhone: request.body.From
   })
