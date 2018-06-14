@@ -2,10 +2,9 @@ const express = require('express');
 const axios = require('axios');
 const querystring = require("querystring");
 const router = express.Router();
-const Twilio = require('twilio')
 const crypto = require('crypto')
 const request = require('request')
-
+const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 
 /*
