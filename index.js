@@ -1,28 +1,38 @@
 const express = require('express');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const urlencoded = require('body-parser').urlencoded;
+const axios = require('axios'); // promised based requests - like fetch()
 
 const app = express();
 app.set('port', (process.env.PORT || 5000));
 // Parse incoming POST params with Express middleware
 app.use(urlencoded({ extended: false }));
 
+
 // Create a route that will handle Twilio webhook requests, sent as an
 // HTTP POST to /voice in our application
 app.post('/voice', (request, response) => {
-  console.log(request.body);
-  var phoneNumber = '+15128176776';
-  var callerId = '+15125984144';
-  var twiml = new VoiceResponse();
+async function go(){
+  try{
+    const wes = await axios('https://followupedge.com/version-test/api/1.1/obj/user?api_token=98107ac3b7b363d93f1b9e3863b79bee&constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%2215125984144%22%7D%5D');
+    console.log(wes);
+    console.log(request.body.From);
+    var phoneNumber = '+15128176776';
+    var callerId = request.body.From;
+    var twiml = new VoiceResponse();
 
-  var dial = twiml.dial({callerId : callerId});
-  if (phoneNumber != null) {
-    dial.number(phoneNumber);
-  } else {
-    dial.client("support_agent");
+    var dial = twiml.dial({callerId : callerId});
+    if (phoneNumber != null) {
+      dial.number(phoneNumber);
+    } else {
+      dial.client("support_agent");
+    }
+    response.send(twiml.toString());
+  }catch (e){
+    console.log(e);
   }
-
-response.send(twiml.toString());
+}
+  go();
 });
 
 // Create an HTTP server and listen for requests on port 3000
