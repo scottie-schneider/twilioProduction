@@ -32,7 +32,7 @@ app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
         if (phoneNumber != null) {
           dial.number(phoneNumber);
         }
-        res.send(twiml.toString());
+        //res.send(twiml.toString());
       })
       .catch((e) => {
         console.log(e.message);
