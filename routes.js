@@ -18,14 +18,13 @@ Overall goals
 */
 router.post('/', (req, res) => {
 
-const url = 'https://handler.twilio.com/twiml/EH2fedbe3a5c939d2f5ad7a4e325a390dd?AccountSid=ACde1a258b0739ab5329d862519e4f16f6'
+  // Use the Twilio Node.js SDK to build an XML response
+  const twiml = new VoiceResponse();
+  twiml.say({ voice: 'alice' }, 'hello world!');
 
-const twilioSig = crypto.createHmac('sha1', '70a625b9522cb1e511f60afaebfde860').update(new Buffer(url, 'utf-8')).digest('Base64')
-
-  request({url: url, headers: { 'X-TWILIO-SIGNATURE': twilioSig }}, function(err, res, body) {
-    console.log(res.body)
-    res.send('yep')
-  })
+  // Render the response as XML in reply to the webhook request
+  res.type('text/xml');
+  res.send(twiml.toString());
 
 })
 
