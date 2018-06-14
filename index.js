@@ -14,7 +14,7 @@ app.use(urlencoded({ extended: false }));
 // Create a route that will handle Twilio webhook requests, sent as an
 // HTTP POST to /voice in our application
 app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
-  console.log(req);
+  console.log('hi bich');
 
   // start bubble call
   let token = '98107ac3b7b363d93f1b9e3863b79bee';
