@@ -14,16 +14,9 @@ app.use(urlencoded({ extended: false }));
 app.post('/voice', twilio.webhook({validate: false}), function(req, res, next) {
   var phoneNumber = '15128176951';
   var callerId = '15128176776';
-  var twiml = new VoiceResponse();
 
-  var dial = twiml.dial({callerId : callerId});
-  if (phoneNumber != null) {
-    dial.number(phoneNumber);
-  } else {
-    dial.client("support_agent");
-  }
 
-  res.send(twiml.toString());
+  res.send('<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number>15128176951</Number></Dial></Response>');
 });
 
 // Create an HTTP server and listen for requests on port 3000
