@@ -21,7 +21,7 @@ app.post('/voice', (request, response) => {
     dial.client("support_agent");
   }
 
-res.send(twiml.toString());
+response.send(twiml.toString());
 });
 
 // Create an HTTP server and listen for requests on port 3000
