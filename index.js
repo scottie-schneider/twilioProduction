@@ -17,17 +17,20 @@ app.post('/voice', (request, response) => {
 async function go(){
   try{
     let campaignPhone = request.body.To;
+    let campaignPhoneType = '';
     //if the first 3 characters are +61, make it an aussie number
     console.log('campaign phone below');
     console.log(campaignPhone)
 
     if(campaignPhone.slice(0,3) == "+61"){
       campaignPhone = request.body.To.substring(3);
+      campaignPhoneType = 'AUS';
       console.log(`aussie number ${campaignPhone}`)
     }
     // if the first 2 characters are +1, then it's a us/canada number and proceed as normal
     if(campaignPhone.slice(0,2) == "+1"){
       campaignPhone = request.body.To.substring(1);
+      campaignPhoneType = 'US';
       console.log(`US number, ${campaignPhone}`)
     }
     const wes = await axios(`https://followupedge.com/api/1.1/obj/user?api_token=98107ac3b7b363d93f1b9e3863b79bee&constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${campaignPhone}%22%7D%5D`);
@@ -38,13 +41,17 @@ async function go(){
       console.log(wes.data.response.results);
       console.log(wes.data.response.results[0].personalPhone);
       console.log(request.body.From);
-      var phoneNumber = wes.data.response.results[0].personalPhone;
+      if(campaignPhoneType == 'AUS'){
+        var phoneNumber = '+61' + wes.data.response.results[0].personalPhone;
+      }else if(campaignPhoneType == 'US'){
+        var phoneNumber = wes.data.response.results[0].personalPhone;
+      }else{
+        var phoneNumber = wes.data.response.results[0].personalPhone;
+      }
       var callerId = request.body.From;
       var twiml = new VoiceResponse();
-
       var dial = twiml.dial({callerId : callerId});
       dial.number(phoneNumber);
-
       response.send(twiml.toString());
       // TODO: hit bubble endpoint
       axios.post('https://followupedge.com/api/1.1/wf/gotacall', {
