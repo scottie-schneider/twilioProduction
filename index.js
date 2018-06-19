@@ -42,7 +42,7 @@ async function go(){
       console.log('personal phone is ' + wes.data.response.results[0].personalPhone);
       console.log('number calling is ' + request.body.From);
       if(campaignPhoneType == 'AUS'){
-        var phoneNumber = '+61' + wes.data.response.results[0].personalPhone;
+        var phoneNumber = '+61' + wes.data.response.results[0].personalPhone.substring(wes.data.response.results[0].personalPhone.length - 9);
       }else if(campaignPhoneType == 'US'){
         var phoneNumber = wes.data.response.results[0].personalPhone;
       }else{
