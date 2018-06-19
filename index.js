@@ -38,9 +38,9 @@ async function go(){
       console.log('not found');
       response.send('not found')
     }else {
-      console.log(wes.data.response.results);
-      console.log(wes.data.response.results[0].personalPhone);
-      console.log(request.body.From);
+      //console.log(wes.data.response.results);
+      console.log('personal phone is ' + wes.data.response.results[0].personalPhone);
+      console.log('number calling is ' + request.body.From);
       if(campaignPhoneType == 'AUS'){
         var phoneNumber = '+61' + wes.data.response.results[0].personalPhone;
       }else if(campaignPhoneType == 'US'){
@@ -53,7 +53,7 @@ async function go(){
       var dial = twiml.dial({callerId : callerId});
       dial.number(phoneNumber);
       response.send(twiml.toString());
-      // TODO: hit bubble endpoint
+      console.log('dialing ' + phoneNumber + ' from ' + callerId)
       axios.post('https://followupedge.com/api/1.1/wf/gotacall', {
         user: wes.data.response.results[0]._id,
         prospectPhone: request.body.From
