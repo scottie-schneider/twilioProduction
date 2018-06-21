@@ -101,7 +101,24 @@ app.post('/agents', (request, response) => {
   async function now(){
     const twiml = new VoiceResponse();
     try{
-      prospectPhone = request.body.From.substring(1);
+      let prospectPhone = request.body.To;
+      let prospectPhoneType = '';
+
+      console.log('prospect phone below');
+      console.log(prospectPhone)
+
+      //if the first 3 characters are +61, make it an aussie number
+      if(prospectPhone.slice(0,3) == "+61"){
+        prospectPhone = request.body.To.substring(3);
+        prospectPhoneType = 'AUS';
+        console.log(`aussie number ${prospectPhone}`)
+      }
+      // if the first 2 characters are +1, then it's a us/canada number and proceed as normal
+      if(prospectPhone.slice(0,2) == "+1"){
+        prospectPhone = request.body.To.substring(1);
+        prospectPhoneType = 'US';
+        console.log(`US number, ${prospectPhone}`)
+      }
       // call bubble to get the prospect's name
       const name = await axios(`https://followupedge.com/api/1.1/obj/prospect?api_token=98107ac3b7b363d93f1b9e3863b79bee&constraints=%5B%7B%22key%22%3A%22CB%20Mobile%20Number%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${prospectPhone}%22%7D%5D`);
 
