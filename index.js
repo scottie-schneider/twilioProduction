@@ -78,7 +78,7 @@ async function go(){
           console.log('you have an error')
           console.log(e.message);
         })
-      }else(campaignPhoneType == 'US'){
+      }else if(campaignPhoneType == 'US'){
         // post to the bubble endpoint to trigger the unsubscribe wf (US)
         axios.post('https://followupedge.com/api/1.1/wf/gotacall', {
           user: wes.data.response.results[0]._id,
