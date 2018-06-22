@@ -109,7 +109,7 @@ app.post('/agents', (request, response) => {
 
       //if the first 3 characters are +61, make it an aussie number
       if(prospectPhone.slice(0,3) == "+61"){
-        prospectPhone = request.body.To.substring(3);
+        prospectPhone = '0' + request.body.To.substring(3);
         prospectPhoneType = 'AUS';
         console.log(`aussie number ${prospectPhone}`)
       }
