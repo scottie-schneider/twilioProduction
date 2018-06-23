@@ -1,15 +1,21 @@
-// TODO: Add in callbacks for message status
-// TODO: add in campaign?
 
+const accountSid = 'ACde1a258b0739ab5329d862519e4f16f6';
+const authToken = '70a625b9522cb1e511f60afaebfde860';
 // Required modules follow
 const express = require('express');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
-const urlencoded = require('body-parser').urlencoded;
+const bodyParser = require('body-parser');
 const axios = require('axios'); // promised based requests - like fetch()
+const client = require('twilio')(accountSid, authToken);
 
 const app = express();
 app.set('port', (process.env.PORT || 5000));
-app.use(urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Parsing
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Sanity check
 app.get('/', (request, response) => {
@@ -109,7 +115,7 @@ app.post('/agents', (request, response) => {
 
       //if the first 3 characters are +61, make it an aussie number
       if(prospectPhone.slice(0,3) == "+61"){
-        prospectPhone = '0' + request.body.To.substring(3);
+        prospectPhone = request.body.To.substring(3);
         prospectPhoneType = 'AUS';
         console.log(`aussie number ${prospectPhone}`)
       }
@@ -140,6 +146,34 @@ app.post('/agents', (request, response) => {
   }
   now();
 })
+/////////////////////////////////////////////////////////////
+// Text Message Endpoints
+/////////////////////////////////////////////////////////////
+app.post('/sms', (request, response) => {
+  client.messages
+        .create({
+           body: request.body.body,
+           from: request.body.from,
+           statusCallback: 'https://d38.bubble.is/site/blondielives/api/1.1/wf/sms_status',
+           to: request.body.to
+         })
+        .then((message) => {
+          console.log(message.sid);
+          response.json({ message_sid: message.sid });
+        })
+        .catch((e) => {
+          axios.post('https://d38.bubble.is/site/blondielives/api/1.1/wf/twilio_sms_error', {
+            error: e
+          })
+          .catch((e) => {
+            console.log('you have an error')
+            console.log(e.message);
+          })
+          response.json( { error: e })
+        })
+        .done();
+
+});
 // Create an HTTP server and listen for requests on port 3000
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
