@@ -150,6 +150,7 @@ app.post('/agents', (request, response) => {
 // Text Message Endpoints
 /////////////////////////////////////////////////////////////
 app.post('/sms', (request, response) => {
+  console.log(request);
   client.messages
         .create({
            body: request.body.body,
@@ -168,6 +169,9 @@ app.post('/sms', (request, response) => {
           .catch((e) => {
             console.log('you have an error')
             console.log(e.message);
+            axios.post('https://d38.bubble.is/site/blondielives/api/1.1/wf/twilio_sms_error', {
+              error: e
+            })
           })
           response.json( { error: e })
         })
