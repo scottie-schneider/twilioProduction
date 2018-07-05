@@ -1,6 +1,6 @@
 
 const accountSid = 'ACde1a258b0739ab5329d862519e4f16f6';
-const authToken = '27c870afdbef9bc00cb94fb78d0842af';
+const authToken = 'c440d80ba64f2b9c2cef234d753e7c7b';
 // Required modules follow
 const express = require('express');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
