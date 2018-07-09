@@ -49,6 +49,7 @@ async function go(){
     // Search the bubble DB for the user's personal phone number
     const wes = await axios(`https://followupedge.com/api/1.1/obj/user?api_token=98107ac3b7b363d93f1b9e3863b79bee&constraints=%5B%7B%22key%22%3A%22CampaignPhone%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${campaignPhone}%22%7D%5D`);
     if(wes.data.response.results.length == 0){
+      console.log(wes.data.response)
       console.log('not found');
       response.send('not found')
     }else {
