@@ -22,6 +22,43 @@ app.get('/', (request, response) => {
   response.send('hello world');
 });
 
+app.get('/expenses', (request, response) => {
+  let spend = {};
+  // use the lastMonth modifier to return total spend month before
+  client.usage.records.lastMonth.list({
+  }).then(function(results) {
+      if (!results) {
+          throw { message: 'Ruh roh - couldn\'t list numbers because: '};
+      }
+      for(item in results){
+        if(results[item].category == 'totalprice'){
+          console.log(results[item].price)
+          spend['lastMonth'] = results[item].price;
+        }
+      }
+      // Return promise for the next call to Twilio...
+      return client.usage.records.thisMonth.list({})
+  }).then(function(thisMonth) {
+      // handle the case where there are no numbers found
+      for(item in thisMonth){
+        if(thisMonth[item].category == 'totalprice'){
+          console.log(thisMonth[item].price)
+          spend['thisMonth'] = thisMonth[item].price;
+        }
+      }
+  }).then(function(number) {
+      // Success!  This is our final state
+      console.log('Success');
+  }).catch(function(error) {
+      // Handle any error from any of the steps...
+      console.error('Buying the number failed. Reason: '+error.message);
+  }).finally(function() {
+      // This optional function is *always* called last, after all other callbacks
+      // are invoked.  It's like the "finally" block of a try/catch
+      console.log(spend);
+      response.send(spend)
+  });
+})
 // Create a route that will handle Twilio webhook requests, sent as an
 // HTTP POST to /voice in our application
 app.post('/voice', (request, response) => {
@@ -179,7 +216,7 @@ app.post('/sms', (request, response) => {
         .done();
 
 });
-// Create an HTTP server and listen for requests on port 3000
+// Create an HTTP server and listen for requests on port 5000
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
