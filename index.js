@@ -1,6 +1,6 @@
 
-const accountSid = 'ACde1a258b0739ab5329d862519e4f16f6';
-const authToken = 'c440d80ba64f2b9c2cef234d753e7c7b';
+const accountSid = process.env.twilio_accountSID;
+const authToken = process.env.twilio_authToken;
 // Required modules follow
 const express = require('express');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.get('/', (request, response) => {
   response.send('hello world');
 });
-
+// pinging Twilio for the monthly spend. Using boilerplate code found on their site
 app.get('/expenses', (request, response) => {
   let spend = {};
   // use the lastMonth modifier to return total spend month before
