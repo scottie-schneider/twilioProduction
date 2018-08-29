@@ -351,6 +351,7 @@ app.post('/sms', (request, response) => {
 // Oh shit, recreating the scheduler function here.
 app.post('/schedule', (request, response) => {
   console.log('scheduled!')
+  response.send('Hello Scheduler')
 })
 // Create an HTTP server and listen for requests on port 5000
 app.listen(app.get('port'), function() {
