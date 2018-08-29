@@ -6,14 +6,15 @@ const express = require('express');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const bodyParser = require('body-parser');
 const axios = require('axios'); // promised based requests - like fetch()
-const client = require('twilio')(accountSid, authToken);
+//const client = require('twilio')(accountSid, authToken);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Stripe specific info
 require('dotenv').config();
 
 const stripe = require("stripe")(
-  process.env.STRIPESK
+  'sk_live_nXtU4rFd1oGkcNOzI1L65b55'
+  //process.env.STRIPESK
 );
 
 const moment = require('moment');
@@ -347,6 +348,10 @@ app.post('/sms', (request, response) => {
         .done();
 
 });
+// Oh shit, recreating the scheduler function here.
+app.post('/schedule', (request, response) => {
+  console.log('scheduled!')
+})
 // Create an HTTP server and listen for requests on port 5000
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
