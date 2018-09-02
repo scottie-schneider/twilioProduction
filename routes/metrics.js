@@ -5,45 +5,46 @@ const accountSid = process.env.twilio_accountSID;
 const authToken = process.env.twilio_authToken;
 const client = require('twilio')(accountSid, authToken);
 
+let spend = {};
 
-function getTwilioCosts() {
-  let spend = {};
-  // use the lastMonth modifier to return total spend month before
-  client.usage.records.lastMonth.list({
-  }).then(function(results) {
-      if (!results) {
-          throw { message: 'Ruh roh - couldn\'t list numbers because: '};
-      }
-      for(item in results){
-        if(results[item].category == 'totalprice'){
-          console.log(results[item].price)
-          spend['lastMonth'] = results[item].price;
+routes.get('/twilio', (req,res) => {
+  
+  // get Twilio expenses
+  function getTwilioCosts() {
+    // use the lastMonth modifier to return total spend month before
+    client.usage.records.lastMonth.list({
+    }).then(function(results) {
+        if (!results) {
+            throw { message: 'Ruh roh - couldn\'t list numbers because: '};
         }
-      }
-      // Return promise for the next call to Twilio...
-      return client.usage.records.thisMonth.list({})
-  }).then(function(thisMonth) {
-      // handle the case where there are no numbers found
-      for(item in thisMonth){
-        if(thisMonth[item].category == 'totalprice'){
-          console.log(thisMonth[item].price)
-          spend['thisMonth'] = thisMonth[item].price;
+        for(item in results){
+          if(results[item].category == 'totalprice'){
+            console.log(results[item].price)
+            spend['lastMonth'] = results[item].price;
+          }
         }
-      }
-  }).then(function(number) {
-      // Success!  This is our final state
-      console.log('Success');
-  }).catch(function(error) {
-      // Handle any error from any of the steps...
-      console.error('Buying the number failed. Reason: '+error.message);
-  }).finally(function() {
-      // This optional function is *always* called last, after all other callbacks
-      // are invoked.  It's like the "finally" block of a try/catch
-      console.log(spend);
-      response.send(spend)
-  });
-}
-routes.get('/', (req,res) => {
-  res.status(200).json({message: 'Metrics fool!'})
+        // Return promise for the next call to Twilio...
+        return client.usage.records.thisMonth.list({})
+    }).then(function(thisMonth) {
+        // handle the case where there are no numbers found
+        for(item in thisMonth){
+          if(thisMonth[item].category == 'totalprice'){
+            console.log(thisMonth[item].price)
+            spend['thisMonth'] = thisMonth[item].price;
+          }
+        }
+    }).then(function(number) {
+        // Success!  This is our final state
+        console.log('Success');
+    }).catch(function(error) {
+        // Handle any error from any of the steps...
+        console.error('Buying the number failed. Reason: '+error.message);
+    }).finally(function() {
+        // This optional function is *always* called last, after all other callbacks
+        // are invoked.  It's like the "finally" block of a try/catch
+        res.send(spend)
+    });
+  }
+  getTwilioCosts();
 })
 module.exports = routes;
