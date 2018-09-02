@@ -1,0 +1,90 @@
+// Campaign Event Data Structure
+{
+  "CB Campaign": "1515955429161x889080297163849700",
+  "Created Date": "2018-01-14T18:44:50.818Z",
+  "Created By": "1515427913842x924558056984096800",
+  "Modified Date": "2018-03-28T18:56:25.827Z",
+  "CB Body (Formatted)": "Hi {{firstName}}, thank you for reaching out regarding the Veteran Refinancing Home Program! I thought following up through text might be easier for you. \n\nDo you have some time to talk today or tomorrow? Let me know. Feel free to call me at {{MyCampaignPhone}}. I'm always here to help.\n\n-{{MyName}}",
+  "CB Subject": "Hey!",
+  "CB Type": "SMS",
+  "CB Delay": 600000,
+  "CampaignPhone": "15123992208",
+  "CampaignPhone2": "15123992208",
+  "CB Sender Name": "Bobby Stocks",
+  "CB Body (Raw)": "Hi {{firstName}}, thank you for reaching out regarding the Veteran Refinancing Home Program! I thought following up through text might be easier for you. \n\nDo you have some time to talk today or tomorrow? Let me know. Feel free to call me at {{MyCampaignPhone}}. I'm always here to help.\n\n-{{MyName}}",
+  "original": "yes",
+  "error notifications": [],
+  "recurring_scheduling": {
+      "GeW0": {
+          "frequency": "daily",
+          "last_run_date": 1535571846181,
+          "next_schedule_id": 3173230
+      }
+  },
+  "ran": "original",
+  "V3_timetosend_hour": 9,
+  "V3_bydayid": "1522124054636x977491888683289300",
+  "V3_daydelay": 0,
+  "V3_masterid": "1522124054326x265280768042430270",
+  "v3 minutes number": 10,
+  "V3_timetosend_minutes": "10",
+  "_id": "1515955492286x134302858799480830",
+  "_type": "custom.campaignevents"
+}
+
+// Campaign Data Structure
+{
+    "campaignevents": [
+        "1515955492286x134302858799480830",
+        "1515955527075x213356770813018100",
+        "1515955577261x488564526169456600",
+        "1515955620783x765547100362768400",
+        "1515955641847x699514911103385600",
+        "1515955662328x162298995555958800",
+        "1517258947552x956393820116746200"
+    ],
+    "CB Campaign Name": ".VA Refi",
+    "Created By": "1515427913842x924558056984096800",
+    "Created Date": "2018-01-14T18:43:48.311Z",
+    "Modified Date": "2018-08-29T01:08:53.774Z",
+    "BETA - Prospects (list)": [
+        "1527907031658x325489004049858560",
+        "1534521778578x139287359779700640"
+    ],
+    "CB Campaign Email": "agent+JQUAE@followupedge.com",
+    "CB Campaign Phone": "15123992209",
+    "campaignsecondaryphone": "15123992208",
+    "CB Campaign ID": "OOXTNQXVJXUNXVUDONONXV",
+    "Time Zone": "America/Los_Angeles",
+    "error notifications": [],
+    "Owner": "1515427913842x924558056984096800",
+    "recurring_scheduling": {
+        "HaS2": {
+            "frequency": "daily",
+            "last_run_date": 1535591344294,
+            "next_schedule_id": 3191028
+        }
+    },
+    "Chart Data (prospect status)": "1535504933682x890778072178363800",
+    "attributionID": null,
+    "Team Attribution Index": 1,
+    "attribution?": false,
+    "attribution team (list)": [],
+    "V3_sendOnWeekends": true,
+    "Cutoff Time (early)": "09:00",
+    "Cutoff Time (late)": "17:00",
+    "Responses (Percentage)": 0,
+    "V3_Campaign Events (master)": "1522131924395x291178234154358500",
+    "Prospect Count": 2,
+    "type": "inbound",
+    "Early Cutoff Time (number)": 9,
+    "Late Cutoff Time (number)": 17,
+    "emails sent": 4,
+    "replies": 14,
+    "ringless vms": 3,
+    "texts sent": 9,
+    "niche": "Mortgage",
+    "country": "1529101647533x683521638857200800",
+    "_id": "1515955429161x889080297163849700",
+    "_type": "custom.campaigns"
+  }

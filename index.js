@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const accountSid = process.env.twilio_accountSID;
 const authToken = process.env.twilio_authToken;
 // Required modules follow
@@ -7,10 +7,13 @@ const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const bodyParser = require('body-parser');
 const axios = require('axios'); // promised based requests - like fetch()
 //const client = require('twilio')(accountSid, authToken);
+const schedule = require('./routes/schedule')
+const test = require('./routes/test')
+const metrics = require('./routes/metrics')
 
+const client = require('twilio')(accountSid, authToken);
 ////////////////////////////////////////////////////////////////////////////////
-// Stripe specific info
-require('dotenv').config();
+
 
 const stripe = require("stripe")(
   'sk_live_nXtU4rFd1oGkcNOzI1L65b55'
@@ -24,12 +27,17 @@ moment().format();
 
 const app = express();
 app.set('port', (process.env.PORT || 5000));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // Parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Routing
+app.use('/schedule', schedule)
+
+app.use('/test', test)
+
+app.use('/metrics', metrics)
 
 // Sanity check
 app.get('/', (request, response) => {
@@ -357,3 +365,5 @@ app.post('/schedule', (request, response) => {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+module.exports = app;
