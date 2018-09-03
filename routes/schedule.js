@@ -4,8 +4,8 @@ routes.get('/', (req,res) => {
   res.status(200).json({message: 'Schedule me!'})
 })
 
-routes.get('/prospect', (req,res) => {
-  res.status(200).json({message: 'Creating prospect boss, standby'})
+routes.get('/weekends', (req,res) => {
+  res.status(200).json({message: 'Sending with weekends!'})
   // ID the user, and look for the prospect
     // Doesn't exist: create prospect
       // ownerId
@@ -17,8 +17,8 @@ routes.get('/prospect', (req,res) => {
   // returns error status or success
 })
 
-routes.get('/events', (req,res) => {
-  res.status(200).json({message: 'This is the place to schedule events'})
+routes.get('/noweekends', (req,res) => {
+  res.status(200).json({message: 'Sending with no weekends!'})
   // TODO: Create campaign events on Prospect object
   // Get the list of campaign events by day from bubble
     // for each campaign event by day
@@ -47,7 +47,7 @@ routes.get('/events', (req,res) => {
     // is today a weekend?
       // yes: push to next non weekend day
       // no: let's go!
-        // take delta from last scheduled event 
+        // take delta from last scheduled event
   
   // TODO: once scheduled and timestamps assigned, schedule in Bubble
   
