@@ -8,7 +8,9 @@ routes.get('/', (req,res) => {
 })
 
 function determineStartDayNoWeekends(createdAtUnix, timeZone) {
+  console.log('entering determineStartDayNoWeekends')
   let day = moment.unix(createdAtUnix)
+  console.log(`unfiltered day is ${day}`)
   console.log(`UTC time is a ${day.format('ddd')}`)
   let localDay = moment.tz(day, timeZone); // Adjust for local timezone
   let copyLocalDay = localDay.clone() // Clone the day so your changes don't affect the mutable moment object (https://momentjs.com/docs/#/parsing/moment-clone/)
@@ -38,20 +40,21 @@ function determineStartDayWeekends(createdAtUnix, timeZone){
 }
 // below is for NO WEEKENDS !
 function determineDelayNW(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay){ // startDay received from above function
+  console.log('entering determineDelayNW')
   // calculate the time plus the max Delay in milliseconds
-  let localDay = moment.tz(moment.unix(startDay), timeZone).add(maxDelay, 'ms') // reset to timezone and add maxDelay
+  let localDay = moment.tz(moment.unix(startDay), timeZone) // reset to timezone
   console.log(`localDay is ${localDay}`)
   let earlyCutoffTime = localDay.clone().hour(parseInt(earlyCutoff.substring(0,2))).minute(0) // sets the bounds
   let lateCutoffTime = localDay.clone().hour(parseInt(lateCutoff.substring(0,2))).minute(0) // sets the bounds
   console.log(`earlyCutoffTime is ${earlyCutoffTime}`);
   console.log(`lateCutoffTime is ${lateCutoffTime}`);
-  if(localDay.isAfter(lateCutoffTime)){
+  if(localDay.clone().add(maxDelay, 'ms').isAfter(lateCutoffTime)){
     console.log('next day!')
     // add a day to local Day set to the early cutoff time
     localDay = business.addWeekDays(localDay, 1).hour(parseInt(earlyCutoff.substring(0,2))).minute(0);
     console.log(`new day is ${localDay}`)
     return localDay.unix()
-  }else if(localDay.isBetween(earlyCutoffTime, lateCutoffTime)) {
+  }else if(localDay.clone().add(maxDelay, 'ms').isBetween(earlyCutoffTime, lateCutoffTime)) {
     console.log('today, no adjustment')
     console.log(`day to start is ${localDay}`)
     return localDay.unix()
@@ -121,7 +124,9 @@ function scheduleDays(startTime, determinedDelay, earlyCutoff, lateCutoff, timeZ
 
 function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone){
   // Step 1: Find the actual start date
+  console.log(`outside if statement ${createdDateUnix}`)
   if(sendWeekends === 0){
+    console.log(`starting with unix ${createdDateUnix}`)
     // determineStartDayNoWeekends - spits out a weekday to start with, local time zone
     let phase1 = determineStartDayNoWeekends(createdDateUnix, timeZone);
     // determineDelayNW(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay) - figures out the actual day to start
@@ -135,7 +140,7 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       console.log(`UTC Time (UNIX): ${time.unix()}`)
       console.log(`Local Time: ${moment.tz(time, timeZone)}`)
       console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
-      return time;
+      return time.unix();
     }else{ // if not day 0
       // add the startTime + dayDelay IN BUSINESS DAYS IN LOCAL
       let time = moment.tz(moment.unix(startDay), timeZone)
@@ -146,7 +151,7 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       // return the timeStamp
       console.log(`adjusted Time is ${time}`)
       console.log(`${time.unix()}`)
-      return time
+      return time.unix()
     }
   } else {
     // if send on weekends
