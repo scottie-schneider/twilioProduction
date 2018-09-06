@@ -3,9 +3,6 @@ const business = require('moment-business');
 //https://github.com/jamesplease/moment-business
 const moment = require('moment')
 const timezone = require('moment-timezone')
-routes.get('/', (req,res) => {
-  res.status(200).json({message: 'Schedule me!'})
-})
 
 function determineStartDayNoWeekends(createdAtUnix, timeZone) {
   console.log('entering determineStartDayNoWeekends')
@@ -96,31 +93,6 @@ function determineDelay(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay){ 
     return localDay.unix();
   }
 }
-// before the cutoff time zone, starts day of at 9
-// determineDelay(1536510362, "09:00", "19:00", "Australia/Sydney", 1200000)
-
-//determineDelayNW(1535950800, "09:00", "19:00", "Australia/Sydney", 1200000)
-// after the late time, starts a day later at early time zone
-//determineDelayNW(1535968800, "09:00", "19:00", "Australia/Sydney", 1200000)
-function scheduleDayOne(startTime, timeDelay){
-  // take the startTime, and then add the timeDelay in MS - this is the time we need it to send out
-  let scheduledTime = moment.unix(startTime).add(timeDelay, 'ms')
-  console.log(`UTC - ${scheduledTime}`)
-  console.log(`UTC Unix - ${scheduledTime.unix()}`)
-  return scheduledTime.unix();
-}
-// should schedule for monday 10th 9:20am in Sydney ()
-//scheduleDayOne(1536534002, 1200000)
-
-function scheduleDays(startTime, determinedDelay, earlyCutoff, lateCutoff, timeZone, hour, minute){
-  
-}
-// before the cutoff time zone, starts day of at 9
-//determineDelayNW(1536510362, "09:00", "19:00", "Australia/Sydney", 1200000)
-// within the time zones, starts on time
-//determineDelayNW(1535950800, "09:00", "19:00", "Australia/Sydney", 1200000)
-// after the late time, starts a day later at early time zone
-//determineDelayNW(1535968800, "09:00", "19:00", "Australia/Sydney", 1200000)
 
 function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone){
   // Step 1: Find the actual start date
@@ -183,74 +155,13 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       return time.unix()
     }
   }
-  
-  
-  
-  
-  // if not send weekends
 }
-//getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone)
-// Should schedule for 9:01am Fri Aug 31st (Aussie time) and Thu Aug 30 1801 for UTC
-//getTime("09:00", "18:00", 1535657223, 60000, undefined, undefined, 1200000, 1, 0, "Australia/Sydney")
-// should schedule for 12:12am Tuesday the 4th (Aussie time)
-//getTime("09:00", "18:00", 1535750762, 600000, 12, 12, 3360000, 1, 1, "Australia/Sydney")
-
-// test cases
-// Thursday in the states, Friday in Australia - start date Friday +10
-//determineStartDayNoWeekends(1535657223, "Australia/Sydney");
-// Friday in the states, Saturday in Australia - start date Monday +10
-//determineStartDayNoWeekends(1535750762, "Australia/Sydney");
-// Saturday in the states, Sunday in Australia - start date Monday +10
-//determineStartDayNoWeekends(1536423962, "Australia/Sydney");
-// Sunday in the states, Monday in Australia
-//determineStartDayNoWeekends(1536510362, "Australia/Sydney");
-
-// Thursday in the states, Friday in Australia - start date Friday +10
-//determineStartDayWeekends(1535657223, "Australia/Sydney");
-// Friday in the states, Saturday in Australia - start date Saturday +10
-//determineStartDayWeekends(1535750762, "Australia/Sydney");
-// Saturday in the states, Sunday in Australia - start date Sunday +10
-//determineStartDayWeekends(1536423962, "Australia/Sydney");
-// Sunday in the states, Monday in Australia - Start date Monday +10
-//determineStartDayWeekends(1536510362, "Australia/Sydney");
 
 
-routes.get('/weekends', (req,res) => {
-  // whether or not we add a day to the sequence
-  let dayAdd = 0;
-  // the given day delay on the campaign event
-  let dayDelay = 0;
-  
-  // defines dayAdd as either 0 or 1
-  checkAddDayWeekends();
-  
-  if(dayAdd == 0){
-    // schedule day 0
-    scheduleDayOne();
-  }else{
-    // dayDelay
-    scheduleDay();
-  }
-  res.status(200).json({message: 'Sending with weekends!'})
-})
-
-routes.get('/noweekends', (req,res) => {
-  // define variables
-  let dayAdd = 0;
-  // the given day delay on the campaign event
-  let dayDelay = 0;
-  
-  // defines dayAdd from 0 - 6
-  checkAddDayNoWeekends();
-  
-  if(dayAdd == 0){
-    // schedule day 0
-    scheduleDayOne();
-  }else{
-    // dayDelay
-    scheduleDay();
-  }
-  res.status(200).json({message: 'Sending with no weekends!'})
+routes.post('/campaignEvent', (req,res) => {
+  let test = req.body.test;
+  console.log(`test is ${test}`)
+  res.status(200).json({scheduledTimeSeconds: test})
 })
 
 module.exports = routes;
