@@ -112,7 +112,7 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       console.log(`UTC Time (UNIX): ${time.unix()}`)
       console.log(`Local Time: ${moment.tz(time, timeZone)}`)
       console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
-      return time.unix();
+      return time.unix()*1000;
     }else{ // if not day 0
       // add the startTime + dayDelay IN BUSINESS DAYS IN LOCAL
       let time = moment.tz(moment.unix(startDay), timeZone)
@@ -123,7 +123,7 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       // return the timeStamp
       console.log(`adjusted Time is ${time}`)
       console.log(`${time.unix()}`)
-      return time.unix()
+      return time.unix()*1000
     }
   } else {
     // if send on weekends
@@ -140,7 +140,7 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       console.log(`Local Time: ${moment.tz(time, timeZone)}`)
       console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
       // return time
-      return time.unix()
+      return time.unix()*1000
     }else {
       console.log('day 1+')
       // add a certain number of days
@@ -152,16 +152,26 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       // return time
       console.log(`adjusted Time is ${time}`)
       console.log(`${time.unix()}`)
-      return time.unix()
+      return time.unix()*1000
     }
   }
 }
 
 
 routes.post('/campaignEvent', (req,res) => {
-  let test = req.body.test;
-  console.log(`test is ${test}`)
-  res.status(200).json({scheduledTimeSeconds: test})
+  let earlyCutoff = req.body.earlyCutoff;
+  let lateCutoff = req.body.lateCutoff;
+  let createdDateUnix = req.body.createdDateUnix;
+  let delay = req.body.delay;
+  let minToSend = req.body.minToSend;
+  let hourToSend = req.body.hourToSend;
+  let dayMaxDelay = req.body.dayMaxDelay;
+  let dayOffset = req.body.dayOffset;
+  let sendWeekends = req.body.sendWeekends;
+  let timeZone = req.body.timeZone;
+  
+  let time = getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone)
+  res.status(200).json({scheduledTimeSeconds: time})
 })
 
 module.exports = routes;

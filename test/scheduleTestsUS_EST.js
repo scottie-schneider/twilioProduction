@@ -6,11 +6,11 @@ describe('US - send on weekends', function () {
   // DAY 0 Weekday
   // before day
   it('EST Friday 05:27 9/7, 1 min delay, maxDelay: 20 min. Schedules Friday 9/7 at 9:01', function () {
-    assert.equal(scheduler.getTime("09:00", "18:00", 1536312420, 60000, undefined, undefined, 1200000, 0, 1, "America/New_York"), 1536325260)
+    assert.equal(scheduler.getTime("09:00", "18:00", 1536312420, 60000, undefined, undefined, 1200000, 0, 1, "America/New_York"), 1536325260000)
   })
   // during day
   it('EST Start: Thursday 11:34 9/6, 1 min delay, maxDelay: 20 min. Schedules Thursday 9/6 at 1135', function () {
-    assert.equal(scheduler.getTime("09:00", "18:00", 1536248040, 60000, undefined, undefined, 1200000, 0, 1, "America/New_York"), 1536248100)
+    assert.equal(scheduler.getTime("09:00", "18:00", 1536248040, 60000, undefined, undefined, 1200000, 0, 1, "America/New_York"), 1536248100000)
   })
 //   // after late cutoff
 //   it('Start: Wednesday 20:35, 10 min delay, maxDelay: 20 min. Schedules Thursday at 09:10', function () {
