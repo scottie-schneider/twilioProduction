@@ -162,11 +162,11 @@ routes.post('/campaignEvent', (req,res) => {
   let earlyCutoff = req.body.earlyCutoff;
   let lateCutoff = req.body.lateCutoff;
   let createDate = Math.round(req.body.createdDateUnix/1000);
-  let delay = req.body.delay || undefined;
-  let minToSend = req.body.minToSend || undefined;
-  let hourToSend = req.body.hourToSend || undefined;
-  let dayMaxDelay = req.body.dayMaxDelay;
-  let dayOffset = req.body.dayOffset;
+  let delay = parseInt(req.body.delay) || undefined;
+  let minToSend = parseInt(req.body.minToSend) || undefined;
+  let hourToSend = parseInt(req.body.hourToSend) || undefined;
+  let dayMaxDelay = parseInt(req.body.dayMaxDelay);
+  let dayOffset = parseInt(req.body.dayOffset);
   let sendWeekends = req.body.sendWeekends;
   let timeZone = req.body.timeZone;
   console.log('scheduling!')

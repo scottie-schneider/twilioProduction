@@ -96,8 +96,8 @@ describe('Australia - Day 0 - NO weekends', function () {
     assert.equal(scheduler.getTime("09:00", "18:00", 1535657220, 60000, undefined, undefined, 1200000, 0, 0, "Australia/Sydney"), 1535670060000)
   })
   // during day
-  it('Start: Thursday 11:34 8/30, 1 min delay, maxDelay: 20 min. Schedules Thursday 8/30 at 1135', function () {
-    assert.equal(scheduler.getTime("09:00", "18:00", 1535592840, 60000, undefined, undefined, 1200000, 0, 0, "Australia/Sydney"), 1535592900000)
+  it('Start: Friday 9/7 11:50, 1 min delay, maxDelay: 20 min. Schedules Friday at 1155', function () {
+    assert.equal(scheduler.getTime("09:00", "17:00", 1536339000, 300000, undefined, undefined, 1200000, 0, 'no', "America/Mexico_City"), 1536339300000)
   })
   //after late cutoff
   it('Start: Wednesday 20:35, 10 min delay, maxDelay: 20 min. Schedules Thursday at 09:10', function () {
