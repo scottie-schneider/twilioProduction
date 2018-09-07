@@ -184,7 +184,7 @@ routes.post('/campaignEvent', (req,res) => {
     sendWeekends : ${req.body.sendWeekends}
     timeZone : ${req.body.timeZone}`
   )
-  let time = getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone)
+  let time = getTime(earlyCutoff, lateCutoff, createDate, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone)
   res.status(200).json({scheduledTimeMilliseconds: time})
 })
 
