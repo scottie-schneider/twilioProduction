@@ -88,17 +88,17 @@ function determineDelay(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay){ 
     // set the day to the earlyCutoff time
     // console.log(`LocalDay show me the way ${localDay}`) // this is a day later than needed.
     localDay = localDay.hour(parseInt(earlyCutoff.substring(0,2))).minute(0);
-    // console.log(`will be scheduled starting with ${localDay}`)
-    // console.log(`${localDay.unix()}`)
+    console.log(`will be scheduled starting with ${localDay}`)
+    console.log(`${localDay.unix()}`)
     return localDay.unix();
   }
 }
 
 function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone){
   // Step 1: Find the actual start date
-  // console.log(`outside if statement ${createdDateUnix}`)
+  console.log(`outside if statement ${createdDateUnix}`)
   if(sendWeekends === "no" || sendWeekends == 0){
-    // console.log(`starting with unix ${createdDateUnix}`)
+    console.log(`starting with unix ${createdDateUnix}`)
     // determineStartDayNoWeekends - spits out a weekday to start with, local time zone
     let createDateUnix = createdDateUnix
     let phase1 = determineStartDayNoWeekends(createdDateUnix, timeZone);
@@ -107,12 +107,12 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
     // if day 0
     if(dayOffset === 0){
       // add the startTime + delay
-      // console.log('day 0')
+      console.log('day 0')
       let time = moment.unix(startDay).add(delay, 'ms')
-      // console.log(`UTC Time: ${time}`)
-      // console.log(`UTC Time (UNIX): ${time.unix()}`)
-      // console.log(`Local Time: ${moment.tz(time, timeZone)}`)
-      // console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
+      console.log(`UTC Time: ${time}`)
+      console.log(`UTC Time (UNIX): ${time.unix()}`)
+      console.log(`Local Time: ${moment.tz(time, timeZone)}`)
+      console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
       return time.unix()*1000;
     }else{ // if not day 0
       // add the startTime + dayDelay IN BUSINESS DAYS IN LOCAL
@@ -122,8 +122,8 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
       
       time.hour(parseInt(hourToSend)).minute(parseInt(minToSend))
       // return the timeStamp
-      // console.log(`adjusted Time is ${time}`)
-      // console.log(`${time.unix()}`)
+      console.log(`adjusted Time is ${time}`)
+      console.log(`${time.unix()}`)
       return time.unix()*1000
     }
   } else {
@@ -133,26 +133,24 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
     // if day 0
     if(dayOffset === 0){
       // add the startTime + delay
-      // console.log('day 0')
+      console.log('day 0')
       let time = moment.tz(moment.unix(startDay), timeZone)
       time = time.add(delay, 'ms')
-      // console.log(`UTC Time: ${time}`)
-      // console.log(`UTC Time (UNIX): ${time.unix()}`)
-      // console.log(`Local Time: ${moment.tz(time, timeZone)}`)
-      // console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
-      // return time
+      console.log(`UTC Time: ${time}`)
+      console.log(`UTC Time (UNIX): ${time.unix()}`)
+      console.log(`Local Time: ${moment.tz(time, timeZone)}`)
+      console.log(`Local Time (UNIX): ${moment.tz(time, timeZone).unix()}`)
       return time.unix()*1000
     }else {
-      // console.log('day 1+')
+      console.log('day 1+')
       // add a certain number of days
       let time = moment.tz(moment.unix(startDay), timeZone)
-      // console.log(`Inside getTime ${time}`)
+      console.log(`Inside getTime ${time}`)
       time = time.add(dayOffset,'days')
       // adjust for hour and minute
       time.hour(parseInt(hourToSend)).minute(parseInt(minToSend))
-      // return time
-      // console.log(`adjusted Time is ${time}`)
-      // console.log(`${time.unix()}`)
+      console.log(`adjusted Time is ${time}`)
+      console.log(`${time.unix()}`)
       return time.unix()*1000
     }
   }
