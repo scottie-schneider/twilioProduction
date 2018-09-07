@@ -163,7 +163,7 @@ routes.post('/campaignEvent', (req,res) => {
   
   let earlyCutoff = req.body.earlyCutoff;
   let lateCutoff = req.body.lateCutoff;
-  let createdDateUnix = req.body.createdDateUnix/1000;
+  let createDate = req.body.createdDateUnix/1000;
   let delay = req.body.delay || undefined;
   let minToSend = req.body.minToSend || undefined;
   let hourToSend = req.body.hourToSend || undefined;
@@ -175,7 +175,7 @@ routes.post('/campaignEvent', (req,res) => {
   console.log(`
     earlyCutoff : ${req.body.earlyCutoff}
     lateCutoff : ${req.body.lateCutoff}
-    createdDateUnix : ${req.body.createdDateUnix}
+    createdDateUnix : ${createDate}
     delay : ${req.body.delay}
     minToSend : ${req.body.minToSend}
     hourToSend : ${req.body.hourToSend}
