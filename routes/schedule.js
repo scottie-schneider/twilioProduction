@@ -159,6 +159,7 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
 
 
 routes.post('/campaignEvent', (req,res) => {
+  
   let earlyCutoff = req.body.earlyCutoff;
   let lateCutoff = req.body.lateCutoff;
   let createdDateUnix = req.body.createdDateUnix;
@@ -169,7 +170,18 @@ routes.post('/campaignEvent', (req,res) => {
   let dayOffset = req.body.dayOffset;
   let sendWeekends = req.body.sendWeekends;
   let timeZone = req.body.timeZone;
-  
+  console.log({
+    earlyCutoff,
+    lateCutoff,
+    createdDateUnix,
+    delay,
+    minToSend,
+    hourToSend,
+    dayMaxDelay,
+    dayOffset,
+    sendWeekends,
+    timeZone
+  })
   let time = getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone)
   res.status(200).json({scheduledTimeMilliseconds: time})
 })
