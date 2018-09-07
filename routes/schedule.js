@@ -163,7 +163,7 @@ routes.post('/campaignEvent', (req,res) => {
   
   let earlyCutoff = req.body.earlyCutoff;
   let lateCutoff = req.body.lateCutoff;
-  let createDate = req.body.createdDateUnix/1000;
+  let createDate = Math.round(req.body.createdDateUnix/1000);
   let delay = req.body.delay || undefined;
   let minToSend = req.body.minToSend || undefined;
   let hourToSend = req.body.hourToSend || undefined;
