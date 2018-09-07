@@ -97,7 +97,7 @@ function determineDelay(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay){ 
 function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone){
   // Step 1: Find the actual start date
   // console.log(`outside if statement ${createdDateUnix}`)
-  if(sendWeekends === "false" || sendWeekends == false || sendWeekends == 0){
+  if(sendWeekends === "no" || sendWeekends == 0){
     // console.log(`starting with unix ${createdDateUnix}`)
     // determineStartDayNoWeekends - spits out a weekday to start with, local time zone
     let createDateUnix = createdDateUnix
