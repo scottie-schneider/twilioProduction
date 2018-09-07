@@ -97,9 +97,10 @@ function determineDelay(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay){ 
 function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone){
   // Step 1: Find the actual start date
   // console.log(`outside if statement ${createdDateUnix}`)
-  if(sendWeekends === 0){
+  if(sendWeekends === "no" || sendWeekends == 0){
     // console.log(`starting with unix ${createdDateUnix}`)
     // determineStartDayNoWeekends - spits out a weekday to start with, local time zone
+    let createDateUnix = createdDateUnix
     let phase1 = determineStartDayNoWeekends(createdDateUnix, timeZone);
     // determineDelayNW(startDay, earlyCutoff, lateCutoff, timeZone, maxDelay) - figures out the actual day to start
     let startDay = determineDelayNW(phase1, earlyCutoff, lateCutoff, timeZone, dayMaxDelay)
@@ -162,7 +163,7 @@ routes.post('/campaignEvent', (req,res) => {
   
   let earlyCutoff = req.body.earlyCutoff;
   let lateCutoff = req.body.lateCutoff;
-  let createdDateUnix = req.body.createdDateUnix;
+  let createdDateUnix = req.body.createdDateUnix/1000;
   let delay = req.body.delay;
   let minToSend = req.body.minToSend;
   let hourToSend = req.body.hourToSend;
