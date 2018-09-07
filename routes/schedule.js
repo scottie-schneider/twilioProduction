@@ -171,7 +171,7 @@ routes.post('/campaignEvent', (req,res) => {
   let timeZone = req.body.timeZone;
   
   let time = getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hourToSend, dayMaxDelay, dayOffset, sendWeekends, timeZone)
-  res.status(200).json({scheduledTimeSeconds: time})
+  res.status(200).json({scheduledTimeMilliseconds: time})
 })
 
 module.exports = routes;
