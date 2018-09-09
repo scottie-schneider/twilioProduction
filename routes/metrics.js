@@ -15,6 +15,7 @@ const stripe = require("stripe")(
 );
 
 let spend = {};
+// note: I can collapse the code, but this should really be replaced by route modularization
 routes.get('/stripe', (req,res) => {
   // object that holds the invoices in the format { 'date' : '$200'}, such as { '20' : 200 }
   let invoiceObj = {};
@@ -172,5 +173,8 @@ routes.get('/twilio', (req,res) => {
     });
   }
   getTwilioCosts();
+})
+routes.get('/users', (req,res) => {
+  res.send('Hello from users land.') 
 })
 module.exports = routes;

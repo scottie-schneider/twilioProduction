@@ -32,6 +32,7 @@ app.use('/metrics', metrics)
 
 // Sanity check
 app.get('/', (request, response) => {
+  console.log('Home route')
   response.send('hello world');
 });
 
@@ -196,11 +197,7 @@ app.post('/sms', (request, response) => {
         .done();
 
 });
-// Oh shit, recreating the scheduler function here.
-app.post('/schedule', (request, response) => {
-  console.log('scheduled!')
-  response.send('Hello Scheduler')
-})
+
 // Create an HTTP server and listen for requests on port 5000
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
