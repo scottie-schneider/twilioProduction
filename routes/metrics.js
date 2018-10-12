@@ -134,6 +134,7 @@ routes.get('/stripe', (req,res) => {
     }
   })
 })
+
 routes.get('/twilio', (req,res) => {
   
   // get Twilio expenses
@@ -175,6 +176,6 @@ routes.get('/twilio', (req,res) => {
   getTwilioCosts();
 })
 routes.get('/users', (req,res) => {
-  res.send('Hello from users land.') 
+  res.send('Hello from users land.')
 })
 module.exports = routes;
