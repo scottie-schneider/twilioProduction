@@ -33,7 +33,7 @@ app.use('/metrics', metrics)
 // Sanity check
 app.get('/', (request, response) => {
   console.log('Home route')
-  response.send('hello world');
+  response.send('hello staging');
 });
 
 // calculate upcoming invoices
