@@ -160,7 +160,6 @@ function getTime(earlyCutoff, lateCutoff, createdDateUnix, delay, minToSend, hou
 routes.post('/campaignEvent', (req,res) => {
   
   let earlyCutoff = req.body.earlyCutoff;
-  
   let lateCutoff = req.body.lateCutoff;
   let createDate = Math.round(req.body.createdDateUnix/1000);
   let delay = parseInt(req.body.delay) || undefined;
@@ -169,15 +168,12 @@ routes.post('/campaignEvent', (req,res) => {
   let dayMaxDelay = parseInt(req.body.dayMaxDelay);
   let dayOffset = parseInt(req.body.dayOffset);
   let sendWeekends = req.body.sendWeekends;
-  // timeZone should default to EST (America/New_York)
-  // if timeZone isn't null, undefined, or an empty string, or 'not assigned' or 'auto assigned'
-  if(req.body.timeZone && req.body.timeZone!=='not assigned' && req.body.timeZone !== 'auto assigned'){
+  if(req.body.timeZone && req.body.timeZone != 'auto assigned' && req.body.timeZone != 'not assigned'){
     let timeZone = req.body.timeZone;
-  } else{
+  }else{
     let timeZone = "America/New_York"
   }
-  
-  
+    
   console.log('scheduling!')
   console.log(`
     earlyCutoff : ${req.body.earlyCutoff}
